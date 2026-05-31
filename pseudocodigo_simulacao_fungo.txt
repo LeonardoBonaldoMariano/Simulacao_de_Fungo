@@ -1,0 +1,76 @@
+
+Quais são os dados de entrada necessários?
+    temperatura 
+    nutrientes
+    adaptação
+    umidade
+Qual é o resultado esperado?
+    o número de individuos/area/massa
+    quantos estão surgindo ao decorrer do tempo
+    o número deve subir gradualmente e não multiplicar de uma vez
+    no fim mostar um grfacio de linha com o crescimento ao decorrer do tempo
+Qual é a sequência de passos para chegar ao resultado?
+
+//VARIAVEIS
+    var quantidade_de_individuos = 1
+    var taxa_de_crescimento
+    var temperatura = 15
+    var variação_de_temperatura
+    var nutrientes = 100
+    var consumo_nutricional
+    var adaptacao 
+    var umidade = 50
+    var variação_de_umidade
+    var hora = 0
+    var dia = 0
+
+//INICIO
+enquanto nutrientes > 1 {
+
+//ADAPTAÇÃO AO LONGO DO TEMPO
+    se dia < 2 {
+        adaptacao = 0,1
+    } senao {
+        adaptacao = (adaptacao + (dia / 20))
+    }
+
+
+//UMIDADE AO LONGO DO TEMPO - FEITO
+    se hora = 24 {
+        hora = (hora * 0)
+        dia = (dia + 1)
+    } 
+    se hora > 18 ou hora < 6 {
+        se umidade < 100 {
+            variação_de_umidade = 1,05
+            umidade = (umidade * variação_de_umidade)
+        }
+    } senao {
+        se umidade > 0 {
+            variação_de_umidade = 0,95
+            umidade = (umidade * variação_de_umidade)
+        }
+    }  
+
+//TEMPERATURA AO LONGO DO TEMPO - FEITO
+    se hora > 18 ou hora < 6 {
+        variação_de_temperatura = 0,95
+        temperatura = (temperatura * variação_de_temperatura)
+    } senao {
+        variação_de_temperatura = 1,05
+        temperatura = (temperatura * variação_de_temperatura)
+    }  
+
+
+//NUTRIENTES AO LONGO DO TEMPO - FEITO
+        se nutrientes > 0 {
+        consumo_nutricional = (1-(quantidade_de_individuos/100))
+        nutrientes = (nutrientes * consumo_nutricional)
+    }
+
+//INDIVIDUOS AO LONGO DO TEMPO
+    quantidade_de_individuos(quantidade_de_individuos * temperatura * nutrientes * umidade * adaptacao)
+    espere 1 segundo
+    hora = (hora+1)
+} 
+//Alteraçaõ no funcionamento da umidade.
